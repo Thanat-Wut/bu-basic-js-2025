@@ -8,9 +8,9 @@
         table {
             border-collapse: collapse;
             width: 400px;
-            /* Fixed table width */
+            
             table-layout: fixed;
-            /* Important: forces fixed column width */
+            
         }
 
         th,
@@ -19,11 +19,8 @@
             padding: 8px;
             text-align: left;
             overflow: hidden;
-            /* Hide overflow text */
             text-overflow: ellipsis;
-            /* Add "..." when text too long */
             white-space: nowrap;
-            /* Prevent line break */
         }
     </style>
 </head>
@@ -56,7 +53,7 @@
     <input id="resetTableButton" type="button" value="Reset Table" onclick="resetTable()">
 
     <table>
-        <thead></thead>
+        <thead>
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -67,8 +64,6 @@
                 <td>Aspas </td>
                 <td>Erick Santos</td>
             </tr>
-        </tbody>
-        <tbody>
             <tr>           
                 <td>Thanat</td>
                 <td>Phumaprasert</td>
@@ -82,8 +77,32 @@
         }
 
         function add() {
-            let firstName = document.getElementById('firstName').value;
-            let lastName = document.getElementById('lastName').value;
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
+            const firstname = firstNameInput.value.trim();
+            const lastname = lastNameInput.value.trim();
+
+            if (firstname === '' || lastname === '') {
+                alert('Please enter first name and last name.');
+                return;
+            }
+            const tbody = document.querySelector('table tbody');
+  
+            const newRow = document.createElement('tr');
+            const tdFirstName = document.createElement('td');
+            const tdLastName = document.createElement('td');
+            tdFirstName.textContent = firstname;
+            tdLastName.textContent = lastname;
+
+            newRow.appendChild(tdFirstName);
+            newRow.appendChild(tdLastName);
+            tbody.appendChild(newRow);
+            resetInput();
+        }
+
+        function resetTable() {
+            const tbody = document.querySelector('table tbody');
+            tbody.innerHTML = '';
         }
     </script>
 </body>

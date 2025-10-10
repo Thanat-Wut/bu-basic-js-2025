@@ -48,21 +48,51 @@
     <h3>Your solution for assignment</h3>
     <input type="text" id="todo" placeholder="Todo">
     <input id="addButton" type="button" value="Add" onclick="add()">
-    <input id="resetInputButton" type="button" value="Reset Input" onclick="resetInput()">
-    <ul id="todoList"></ul>
+    <input id="clearTodos" type="button" value="Clear all todos" onclick="clearTodos()" />
+    
 
 </body>
+
+<ul id="todoList"></ul>
+
 <script>
-    function add() {
-        let todo = document.getElementById('todo').value;
-        let todoList = document.getElementById('todoList');
-        todoList.innerHTML = `<li>${todo}</li>`;
+  function add() {
+    let input = document.getElementById('todo');
+    let task = input.value.trim();
+
+    if (task === '') {
+      alert('Please enter a task.');
+      return;
     }
-    function resetInput() {
-        document.getElementById('todo').value = '';
-    }
-    function clearAll() {
-        document.getElementById('todoList').innerHTML = '';
-    }
+
+    let li = document.createElement('li');
+    let checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+
+    let label = document.createElement('label');
+    label.textContent = ' ' + task;
+
+    checkbox.onchange = function () {
+      if (this.checked) {
+        li.classList.add('completed');
+      } else {
+        li.classList.remove('completed');
+      }
+    };
+
+    li.appendChild(checkbox);
+    li.appendChild(label);
+    document.getElementById('todoList').appendChild(li);
+
+    input.value = '';
+  }
+
+  function resetInput() {
+    document.getElementById('todo').value = '';
+  }
+
+  function clearTodos() {
+    document.getElementById('todoList').innerHTML = '';
+  }
 </script>
 </html>
